@@ -1,0 +1,25 @@
+# MQTT contract between the simulator (publisher) and the API (subscriber).
+# Keep both sides in sync with this file.
+
+topic_pattern: "campus/{building_id}/{floor_id}/{device_type}/{device_id}"
+# Example: campus/B03/F2/hvac/ac-07
+
+device_types:
+  - energy_meter
+  - hvac
+  - lighting
+  - occupancy
+
+payload:
+  required_fields:
+    - device_id
+    - timestamp      # ISO 8601, UTC, e.g. 2026-11-10T06:30:00Z
+    - metric         # e.g. energy_kwh, occupancy_count
+    - value
+    - unit
+  optional_fields:
+    - reading_id           # unique id, used for deduplication
+    - building_id
+    - source_type          # simulated | historical
+    - data_quality_status  # ok | suspect | missing
+    - fault_label          # set only on injected faults (ground truth)
