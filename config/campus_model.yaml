@@ -1,0 +1,81 @@
+campus:
+  name: Demo Campus
+  location: Coimbatore, India
+  timezone: Asia/Kolkata
+
+buildings:
+  - id: B01
+    name: Academic Block
+    type: academic
+    floor_area_m2: 8000
+    floors:
+      - id: F1
+        devices:
+          - {id: meter-01, type: energy_meter, unit: kWh}
+          - {id: ac-01, type: hvac, unit: kWh}
+          - {id: light-01, type: lighting, unit: kWh}
+          - {id: occ-01, type: occupancy, unit: people}
+      - id: F2
+        devices:
+          - {id: ac-02, type: hvac, unit: kWh}
+          - {id: light-02, type: lighting, unit: kWh}
+          - {id: occ-02, type: occupancy, unit: people}
+
+  - id: B02
+    name: Library
+    type: library
+    floor_area_m2: 4500
+    floors:
+      - id: F1
+        devices:
+          - {id: meter-02, type: energy_meter, unit: kWh}
+          - {id: ac-03, type: hvac, unit: kWh}
+          - {id: light-03, type: lighting, unit: kWh}
+          - {id: occ-03, type: occupancy, unit: people}
+      - id: F2
+        devices:
+          - {id: ac-04, type: hvac, unit: kWh}
+          - {id: light-04, type: lighting, unit: kWh}
+
+  - id: B03
+    name: Hostel
+    type: residential
+    floor_area_m2: 6000
+    floors:
+      - id: F1
+        devices:
+          - {id: meter-03, type: energy_meter, unit: kWh}
+          - {id: light-05, type: lighting, unit: kWh}
+          - {id: occ-04, type: occupancy, unit: people}
+      - id: F2
+        devices:
+          - {id: light-06, type: lighting, unit: kWh}
+          - {id: occ-05, type: occupancy, unit: people}
+
+  - id: B04
+    name: Admin Block
+    type: office
+    floor_area_m2: 3000
+    floors:
+      - id: F1
+        devices:
+          - {id: meter-04, type: energy_meter, unit: kWh}
+          - {id: ac-05, type: hvac, unit: kWh}
+          - {id: light-07, type: lighting, unit: kWh}
+          - {id: occ-06, type: occupancy, unit: people}
+
+  - id: B05
+    name: Engineering Labs
+    type: laboratory
+    floor_area_m2: 5000
+    floors:
+      - id: F1
+        devices:
+          - {id: meter-05, type: energy_meter, unit: kWh}
+          - {id: ac-06, type: hvac, unit: kWh}
+          - {id: light-08, type: lighting, unit: kWh}
+          - {id: occ-07, type: occupancy, unit: people}
+      - id: F2
+        devices:
+          - {id: ac-07, type: hvac, unit: kWh}
+          - {id: light-09, type: lighting, unit: kWh}
