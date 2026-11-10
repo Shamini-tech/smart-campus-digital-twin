@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+
+# Large / generated data (download with scripts/download_datasets.py)
+data/raw/*
+data/external/*
+data/processed/*
+!data/**/.gitkeep
+!data/academic_calendar.csv
+
+# Generated model artefacts and experiment logs
+models/saved/*
+!models/saved/.gitkeep
+mlruns/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
