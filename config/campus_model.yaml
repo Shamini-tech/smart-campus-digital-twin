@@ -7,7 +7,7 @@ buildings:
   - id: B01
     name: Academic Block
     type: academic
-    floor_area_m2: 8000
+    floor_area_m2: 7028.1
     floors:
       - id: F1
         devices:
@@ -24,7 +24,7 @@ buildings:
   - id: B02
     name: Library
     type: library
-    floor_area_m2: 4500
+    floor_area_m2: 9407.5
     floors:
       - id: F1
         devices:
@@ -40,7 +40,7 @@ buildings:
   - id: B03
     name: Hostel
     type: residential
-    floor_area_m2: 6000
+    floor_area_m2: 5885.2
     floors:
       - id: F1
         devices:
@@ -55,7 +55,7 @@ buildings:
   - id: B04
     name: Admin Block
     type: office
-    floor_area_m2: 3000
+    floor_area_m2: 4806.1
     floors:
       - id: F1
         devices:
@@ -67,7 +67,7 @@ buildings:
   - id: B05
     name: Engineering Labs
     type: laboratory
-    floor_area_m2: 5000
+    floor_area_m2: 8339.9
     floors:
       - id: F1
         devices:
