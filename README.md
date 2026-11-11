@@ -27,3 +27,6 @@ _To be added._
 
 ## Limitations
 _To be added in `docs/limitations.md`._
+
+## Data attribution
+Consumption patterns come from the Building Data Genome Project 2 (BDG2), licensed CC BY-SA. See docs/decisions.md for details. The data is modified (selected buildings, cleaned, replayed as a simulation) and is not redistributed in this repo.
