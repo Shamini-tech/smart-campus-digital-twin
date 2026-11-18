@@ -66,14 +66,21 @@ def find_simultaneous_dips(
     return df.index[mask]
 
 
-def find_outliers(series: pd.Series, weeks: int = 3, k: float = 6.0) -> pd.DatetimeIndex:
-    """Readings far from the same hour of the week in neighbouring weeks."""
+def find_outliers(
+    series: pd.Series, weeks: int = 3, k: float = 6.0, min_rel_change: float = 0.3
+) -> pd.DatetimeIndex:
+    """Readings far from the same hour of the week in neighbouring weeks.
+
+    An hour is flagged only if it is statistically unusual (k times the typical
+    deviation) and also differs from the expected value by min_rel_change.
+    """
     shifts = [series.shift(24 * 7 * i) for i in range(-weeks, weeks + 1) if i != 0]
     expected = pd.concat(shifts, axis=1).median(axis=1)
     dev = (series - expected).abs()
     scale = dev.rolling(24 * 7 * 4, center=True, min_periods=24).median()
-    flagged = dev > k * scale.where(scale > 0)
-    return series.index[flagged.to_numpy()]
+    significant = dev > k * scale.where(scale > 0)
+    material = dev > min_rel_change * expected.abs()
+    return series.index[(significant & material).to_numpy()]
 
 
 def _md_table(df: pd.DataFrame) -> str:
