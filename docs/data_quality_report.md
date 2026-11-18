@@ -6,11 +6,11 @@ Period: 2016-01-01 00:00:00 to 2017-12-31 23:00:00 (17544 hourly rows, 5 buildin
 
 | building | missing_pct | zero_pct | flat_hours | outliers |
 |---|---|---|---|---|
-| Fox_education_Burton | 0.006 | 0.034 | 0 | 260 |
-| Fox_public_Bart | 0.011 | 0.011 | 0 | 599 |
-| Fox_lodging_Wallace | 0.017 | 0.006 | 0 | 58 |
-| Fox_office_Karima | 0.006 | 0.006 | 0 | 539 |
-| Fox_education_Tamika | 0.006 | 0.04 | 0 | 10 |
+| Fox_education_Burton | 0.006 | 0.034 | 0 | 327 |
+| Fox_public_Bart | 0.011 | 0.011 | 0 | 1090 |
+| Fox_lodging_Wallace | 0.017 | 0.006 | 0 | 198 |
+| Fox_office_Karima | 0.006 | 0.006 | 0 | 1270 |
+| Fox_education_Tamika | 0.006 | 0.04 | 0 | 116 |
 
 ## Flat runs (same value for 24+ hours)
 

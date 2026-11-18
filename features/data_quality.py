@@ -66,12 +66,13 @@ def find_simultaneous_dips(
     return df.index[mask]
 
 
-def find_outliers(series: pd.Series, window: int = 24 * 7, k: float = 6.0) -> pd.DatetimeIndex:
-    """Readings far from the local median, measured in robust (MAD) units."""
-    med = series.rolling(window, center=True, min_periods=24).median()
-    dev = (series - med).abs()
-    mad = dev.rolling(window, center=True, min_periods=24).median()
-    flagged = dev > k * mad.where(mad > 0)
+def find_outliers(series: pd.Series, weeks: int = 3, k: float = 6.0) -> pd.DatetimeIndex:
+    """Readings far from the same hour of the week in neighbouring weeks."""
+    shifts = [series.shift(24 * 7 * i) for i in range(-weeks, weeks + 1) if i != 0]
+    expected = pd.concat(shifts, axis=1).median(axis=1)
+    dev = (series - expected).abs()
+    scale = dev.rolling(24 * 7 * 4, center=True, min_periods=24).median()
+    flagged = dev > k * scale.where(scale > 0)
     return series.index[flagged.to_numpy()]
 
 
