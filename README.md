@@ -30,3 +30,9 @@ _To be added in `docs/limitations.md`._
 
 ## Data attribution
 Consumption patterns come from the Building Data Genome Project 2 (BDG2), licensed CC BY-SA. See docs/decisions.md for details. The data is modified (selected buildings, cleaned, replayed as a simulation) and is not redistributed in this repo.
+
+## Data setup
+```bash
+python scripts/download_datasets.py
+```
+Downloads the three BDG2 files used here into `data/raw/` (not committed; CC BY-SA). To rebuild the approximate academic calendar, run `python scripts/build_academic_calendar.py`.
