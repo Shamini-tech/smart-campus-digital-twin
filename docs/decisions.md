@@ -29,3 +29,8 @@ Decisions made so far, and questions still open. Update as the project grows.
 - All five buildings dip together at 2016-10-15 21:00 (one hour); likely a site-wide glitch.
 - Several early-Monday dips between May and Aug 2016 where 4+ buildings drop; cause unknown.
 - Level shifts around Apr 2016 in the office and classroom series; use chronological validation.
+
+## Cleaning rules
+- Exact zeros are treated as missing; flat runs of 24+ identical hours are masked as stuck-meter data.
+- Gaps of up to 3 hours are filled by linear interpolation (status: imputed); longer gaps stay missing.
+- Raw data is never modified; cleaned data and per-hour status go to data/processed/ (gitignored, BDG2-derived).
