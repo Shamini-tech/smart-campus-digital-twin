@@ -8,3 +8,4 @@ numpy
 matplotlib
 ipykernel
 paho-mqtt
+psycopg[binary]
