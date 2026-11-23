@@ -9,7 +9,10 @@ from fastapi import Depends, FastAPI, HTTPException, Query
 from psycopg.rows import dict_row
 
 from ingestion.db import get_dsn
+from config.settings import get_settings
 from ingestion.parser import DEFAULT_TZ
+from twin.entities import Campus
+from twin.state import build_twin_state
 
 app = FastAPI(title="Smart Campus Digital Twin API", version="0.1.0")
 
@@ -80,3 +83,13 @@ def latest(building_id: str, conn=Depends(get_conn)):
     if not rows:
         raise HTTPException(status_code=404, detail=f"no readings for building {building_id}")
     return rows
+
+
+@app.get("/twin/state")
+def twin_state(conn=Depends(get_conn)):
+    """Current state of every building, from the newest reading of each device."""
+    campus = Campus.from_yaml(get_settings().campus_model_path)
+    sql = f"SELECT DISTINCT ON (device_id) {COLS} FROM readings ORDER BY device_id, time DESC"
+    rows = conn.execute(sql).fetchall()
+    states = build_twin_state(campus, rows)
+    return {"campus": campus.name, "buildings": [s.model_dump(mode="json") for s in states]}
