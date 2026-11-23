@@ -9,3 +9,6 @@ matplotlib
 ipykernel
 paho-mqtt
 psycopg[binary]
+fastapi
+uvicorn
+httpx
