@@ -13,7 +13,7 @@ device_types:
 payload:
   required_fields:
     - device_id
-    - timestamp      # ISO 8601, UTC, e.g. 2026-11-10T06:30:00Z
+    - timestamp      # ISO 8601 campus local time, no offset, e.g. 2026-11-10T06:30:00
     - metric         # e.g. energy_kwh, occupancy_count
     - value
     - unit

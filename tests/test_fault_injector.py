@@ -44,3 +44,10 @@ def test_labels_and_effects():
 
 def test_same_seed_gives_same_result():
     assert _run().equals(_run())
+
+def test_short_window_skips_faults_that_do_not_fit():
+    one_day = _readings().iloc[:48]
+    out = inject_faults(one_day, n_ac=1, n_stuck=1, n_spikes=3, stuck_hours=6)
+    labels = set(out["fault_label"])
+    assert "ac_overnight" not in labels
+    assert (out["fault_label"] == "spike").sum() == 3

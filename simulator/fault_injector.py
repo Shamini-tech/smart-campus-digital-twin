@@ -26,7 +26,7 @@ def inject_faults(
 
     # 1. HVAC left running overnight (22:00 to 06:00 at 60% of the unit's peak)
     hvac = out.loc[out["device_type"] == "hvac", "device_id"].unique()
-    for _ in range(n_ac):
+    for _ in range(n_ac if len(days) else 0):
         dev = rng.choice(hvac)
         start = days[rng.integers(len(days))] + pd.Timedelta(hours=22)
         end = start + pd.Timedelta(hours=8)
@@ -38,7 +38,7 @@ def inject_faults(
 
     # 2. Stuck meter: the value freezes for a run of hours
     meters = out.loc[out["device_type"] == "energy_meter", "device_id"].unique()
-    for _ in range(n_stuck):
+    for _ in range(n_stuck if len(times) > stuck_hours else 0):
         dev = rng.choice(meters)
         start = times[rng.integers(len(times) - stuck_hours)]
         end = start + pd.Timedelta(hours=stuck_hours)
@@ -50,7 +50,7 @@ def inject_faults(
 
     # 3. Spikes: single meter readings multiplied by 3
     ok = out.index[(out["device_type"] == "energy_meter") & (out["fault_label"] == "none")]
-    for i in rng.choice(ok, size=n_spikes, replace=False):
+    for i in rng.choice(ok, size=min(n_spikes, len(ok)), replace=False):
         out.loc[i, "value"] = out.loc[i, "value"] * 3
         out.loc[i, "fault_label"] = "spike"
     return out

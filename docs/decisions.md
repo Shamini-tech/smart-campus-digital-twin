@@ -40,3 +40,7 @@ Decisions made so far, and questions still open. Update as the project grows.
 - Lighting is at most 15% and HVAC at most 40% of building electricity, scaled by occupancy and (for HVAC) by Fox air temperature above 15 C.
 - Occupancy count = occupancy level x floor area x assumed density (0.03-0.05 people per m2).
 - Timestamps are campus local time without timezone; the publisher decides the ISO/UTC format.
+
+## MQTT payload timestamps
+- Payload timestamps are ISO 8601 campus local time without an offset, because the BDG2 source has no timezone. Ingestion applies the campus timezone (config/campus_model.yaml) when storing.
+- Missing values are published as JSON null, never NaN.
