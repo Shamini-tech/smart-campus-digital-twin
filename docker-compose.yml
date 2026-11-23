@@ -6,3 +6,18 @@ services:
       - "1883:1883"
     volumes:
       - ./broker/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: campus-db
+    environment:
+      POSTGRES_USER: campus
+      POSTGRES_PASSWORD: campus_dev
+      POSTGRES_DB: campus
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  pgdata:
