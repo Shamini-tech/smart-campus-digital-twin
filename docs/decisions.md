@@ -34,3 +34,9 @@ Decisions made so far, and questions still open. Update as the project grows.
 - Exact zeros are treated as missing; flat runs of 24+ identical hours are masked as stuck-meter data.
 - Gaps of up to 3 hours are filled by linear interpolation (status: imputed); longer gaps stay missing.
 - Raw data is never modified; cleaned data and per-hour status go to data/processed/ (gitignored, BDG2-derived).
+
+## Simulator assumptions
+- Meters replay real BDG2 building electricity (historical). HVAC, lighting and occupancy readings are synthetic (simulated).
+- Lighting is at most 15% and HVAC at most 40% of building electricity, scaled by occupancy and (for HVAC) by Fox air temperature above 15 C.
+- Occupancy count = occupancy level x floor area x assumed density (0.03-0.05 people per m2).
+- Timestamps are campus local time without timezone; the publisher decides the ISO/UTC format.
