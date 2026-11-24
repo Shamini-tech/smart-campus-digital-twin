@@ -328,7 +328,7 @@ date,term,is_finals_week,weekday,is_weekend,holiday_name,is_holiday,is_class_day
 2016-11-22,fall,False,Tuesday,False,,False,True
 2016-11-23,fall,False,Wednesday,False,,False,True
 2016-11-24,fall,False,Thursday,False,Thanksgiving,True,False
-2016-11-25,fall,False,Friday,False,,False,True
+2016-11-25,fall,False,Friday,False,University closure (approx.),True,False
 2016-11-26,fall,False,Saturday,True,,False,False
 2016-11-27,fall,False,Sunday,True,,False,False
 2016-11-28,fall,False,Monday,False,,False,True
@@ -357,14 +357,14 @@ date,term,is_finals_week,weekday,is_weekend,holiday_name,is_holiday,is_class_day
 2016-12-21,winter_break,False,Wednesday,False,,False,False
 2016-12-22,winter_break,False,Thursday,False,,False,False
 2016-12-23,winter_break,False,Friday,False,,False,False
-2016-12-24,winter_break,False,Saturday,True,,False,False
-2016-12-25,winter_break,False,Sunday,True,,False,False
+2016-12-24,winter_break,False,Saturday,True,University closure (approx.),True,False
+2016-12-25,winter_break,False,Sunday,True,University closure (approx.),True,False
 2016-12-26,winter_break,False,Monday,False,Christmas (observed),True,False
-2016-12-27,winter_break,False,Tuesday,False,,False,False
-2016-12-28,winter_break,False,Wednesday,False,,False,False
-2016-12-29,winter_break,False,Thursday,False,,False,False
-2016-12-30,winter_break,False,Friday,False,,False,False
-2016-12-31,winter_break,False,Saturday,True,,False,False
+2016-12-27,winter_break,False,Tuesday,False,University closure (approx.),True,False
+2016-12-28,winter_break,False,Wednesday,False,University closure (approx.),True,False
+2016-12-29,winter_break,False,Thursday,False,University closure (approx.),True,False
+2016-12-30,winter_break,False,Friday,False,University closure (approx.),True,False
+2016-12-31,winter_break,False,Saturday,True,University closure (approx.),True,False
 2017-01-01,winter_break,False,Sunday,True,,False,False
 2017-01-02,winter_break,False,Monday,False,New Year Day (observed),True,False
 2017-01-03,winter_break,False,Tuesday,False,,False,False
@@ -692,7 +692,7 @@ date,term,is_finals_week,weekday,is_weekend,holiday_name,is_holiday,is_class_day
 2017-11-21,fall,False,Tuesday,False,,False,True
 2017-11-22,fall,False,Wednesday,False,,False,True
 2017-11-23,fall,False,Thursday,False,Thanksgiving,True,False
-2017-11-24,fall,False,Friday,False,,False,True
+2017-11-24,fall,False,Friday,False,University closure (approx.),True,False
 2017-11-25,fall,False,Saturday,True,,False,False
 2017-11-26,fall,False,Sunday,True,,False,False
 2017-11-27,fall,False,Monday,False,,False,True
@@ -722,11 +722,11 @@ date,term,is_finals_week,weekday,is_weekend,holiday_name,is_holiday,is_class_day
 2017-12-21,winter_break,False,Thursday,False,,False,False
 2017-12-22,winter_break,False,Friday,False,,False,False
 2017-12-23,winter_break,False,Saturday,True,,False,False
-2017-12-24,winter_break,False,Sunday,True,,False,False
+2017-12-24,winter_break,False,Sunday,True,University closure (approx.),True,False
 2017-12-25,winter_break,False,Monday,False,Christmas,True,False
-2017-12-26,winter_break,False,Tuesday,False,,False,False
-2017-12-27,winter_break,False,Wednesday,False,,False,False
-2017-12-28,winter_break,False,Thursday,False,,False,False
-2017-12-29,winter_break,False,Friday,False,,False,False
-2017-12-30,winter_break,False,Saturday,True,,False,False
-2017-12-31,winter_break,False,Sunday,True,,False,False
+2017-12-26,winter_break,False,Tuesday,False,University closure (approx.),True,False
+2017-12-27,winter_break,False,Wednesday,False,University closure (approx.),True,False
+2017-12-28,winter_break,False,Thursday,False,University closure (approx.),True,False
+2017-12-29,winter_break,False,Friday,False,University closure (approx.),True,False
+2017-12-30,winter_break,False,Saturday,True,University closure (approx.),True,False
+2017-12-31,winter_break,False,Sunday,True,University closure (approx.),True,False

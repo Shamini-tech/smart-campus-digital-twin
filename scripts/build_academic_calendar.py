@@ -1,4 +1,4 @@
-﻿"""Build data/academic_calendar.csv for the Fox source site (2016-2017).
+"""Build data/academic_calendar.csv for the Fox source site (2016-2017).
 
 IMPORTANT: term, spring-break and finals dates are APPROXIMATE assumptions for a
 typical US university in Arizona, not an official calendar. US federal
@@ -19,6 +19,16 @@ HOLIDAYS = {
     "2017-10-09": "Columbus Day", "2017-11-10": "Veterans Day (observed)", "2017-11-23": "Thanksgiving",
     "2017-12-25": "Christmas",
 }
+
+# APPROXIMATE university closure days, from the usual academic calendar (NOT derived
+# from load): the Friday after Thanksgiving and the winter closure, 24-31 Dec.
+CLOSURE_DAYS = (
+    ["2016-11-25", "2017-11-24"]
+    + [f"2016-12-{d}" for d in range(24, 32)]
+    + [f"2017-12-{d}" for d in range(24, 32)]
+)
+for _day in CLOSURE_DAYS:
+    HOLIDAYS.setdefault(_day, "University closure (approx.)")
 
 # (start, end, term); later entries override earlier ones
 TERMS = [

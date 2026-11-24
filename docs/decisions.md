@@ -49,3 +49,7 @@ Decisions made so far, and questions still open. Update as the project grows.
 - Chronological split on 2016 data: train before 2016-09-01, validation Sep-Oct, test from 2016-11-01. No shuffling.
 - The loader excludes readings with fault_label != 'none' so injected faults are never learned as normal behaviour.
 - Baselines (same hour yesterday, same hour last week) use only past values. A model must beat them on the test window to be kept.
+
+## Calendar closure days
+- Added approximate university closure days as holidays: the Friday after Thanksgiving and 24-31 Dec (both years). Chosen from the usual academic calendar, not derived from load, to avoid leakage.
+- Reason: error analysis showed the worst forecast days were Thanksgiving week and the winter closure, which the calendar did not flag.
