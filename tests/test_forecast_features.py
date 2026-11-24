@@ -1,4 +1,4 @@
-"""Tests for the forecasting features."""
+﻿"""Tests for the forecasting features."""
 import numpy as np
 import pandas as pd
 import pytest
@@ -13,8 +13,8 @@ def _inputs(n=400):
     days = pd.date_range("2016-09-01", periods=30, freq="D")
     calendar = pd.DataFrame(
         {
-            "is_weekend": days.dayofweek >= 5, "is_holiday": False,
-            "is_class_day": days.dayofweek < 5, "is_finals_week": False,
+            "is_weekend": days.day_of_week >= 5, "is_holiday": False,
+            "is_class_day": days.day_of_week < 5, "is_finals_week": False,
             "term": "fall",
         },
         index=days,
