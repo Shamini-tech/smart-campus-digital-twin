@@ -53,3 +53,7 @@ Decisions made so far, and questions still open. Update as the project grows.
 ## Calendar closure days
 - Added approximate university closure days as holidays: the Friday after Thanksgiving and 24-31 Dec (both years). Chosen from the usual academic calendar, not derived from load, to avoid leakage.
 - Reason: error analysis showed the worst forecast days were Thanksgiving week and the winter closure, which the calendar did not flag.
+
+## Forecasting split v2 (two years)
+- Data now covers 2016-2017. Split: train before 2017-09-01, validation Sep-Oct 2017, test Nov-Dec 2017, so training includes one Thanksgiving and one winter closure.
+- The first experiment (train Jan-Aug 2016, test Nov-Dec 2016) is kept in docs/forecasting_results.md for comparison.
