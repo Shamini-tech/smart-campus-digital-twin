@@ -57,3 +57,8 @@ Decisions made so far, and questions still open. Update as the project grows.
 ## Forecasting split v2 (two years)
 - Data now covers 2016-2017. Split: train before 2017-09-01, validation Sep-Oct 2017, test Nov-Dec 2017, so training includes one Thanksgiving and one winter closure.
 - The first experiment (train Jan-Aug 2016, test Nov-Dec 2016) is kept in docs/forecasting_results.md for comparison.
+
+## Known forecasting limitations (experiment 2)
+- Library (B02) holiday error is high (WAPE 0.46); few holiday examples and irregular library hours.
+- The day before a holiday (e.g. 22 Nov 2017) is labelled an ordinary class day; a day-before/after-holiday feature is a candidate improvement.
+- Some high-error days (4-5 Nov 2017) are unexplained by the calendar and may be events.
