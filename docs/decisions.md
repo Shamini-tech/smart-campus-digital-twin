@@ -62,3 +62,10 @@ Decisions made so far, and questions still open. Update as the project grows.
 - Library (B02) holiday error is high (WAPE 0.46); few holiday examples and irregular library hours.
 - The day before a holiday (e.g. 22 Nov 2017) is labelled an ordinary class day; a day-before/after-holiday feature is a candidate improvement.
 - Some high-error days (4-5 Nov 2017) are unexplained by the calendar and may be events.
+
+## Anomaly detector findings (test Nov-Dec 2017, faults injected: 40 spikes x3, 10 stuck meters of 12 h)
+- Residual detector (|actual-forecast| > k x typical error for that hour of day): k=8 catches 92.5% of spikes with 1.7% false alarms on clean data; stuck meters are mostly missed (17%).
+- Flat-run rule (>= 6 identical hours): catches 100% of stuck meters, 0 false alarms.
+- Requiring 3 consecutive flagged hours did NOT reduce false alarms much (3.9% at k=4): forecast misses are multi-hour, not single-hour blips.
+- Current best simple setup: critical (k=8) + flat run. A moderate one-hour deviation is not alerted (deliberate trade-off against noise).
+- Results are on synthetic injected faults, not real equipment faults.

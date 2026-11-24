@@ -43,3 +43,9 @@ def detection_report(flags: pd.Series, labels: pd.Series) -> dict:
     out["false_alarm_rate"] = round(float(flags[labels == "none"].mean()), 4)
     out["flagged"] = int(flags.sum())
     return out
+
+def persistent_flags(flags: pd.Series, min_len: int = 3) -> pd.Series:
+    """Keep only flagged points that belong to a run of at least min_len consecutive flags."""
+    run_id = (flags != flags.shift()).cumsum()
+    run_len = flags.groupby(run_id).transform("size")
+    return flags & (run_len >= min_len)

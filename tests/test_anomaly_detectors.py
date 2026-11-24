@@ -40,3 +40,10 @@ def test_detection_report():
     assert r["recall_stuck_meter"] == 0.5
     assert r["false_alarm_rate"] == 0.5
     assert r["flagged"] == 3
+
+def test_persistent_flags_keep_only_long_runs():
+    from anomaly.detectors import persistent_flags
+
+    flags = pd.Series([False, True, True, False, True, True, True, False])
+    out = persistent_flags(flags, min_len=3)
+    assert list(out[out].index) == [4, 5, 6]

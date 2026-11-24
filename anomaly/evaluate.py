@@ -10,13 +10,14 @@ import lightgbm as lgb
 import pandas as pd
 
 from anomaly.detectors import (
-    detection_report, flat_run_flags, residual_flags, robust_scale_by_hour,
+    detection_report, flat_run_flags, persistent_flags, residual_flags,
+    robust_scale_by_hour,
 )
 from forecasting.features import build_features, term_categories
 from forecasting.split import TEST_START, VAL_START
 from simulator.fault_injector import inject_faults
 
-K_VALUES = (3.0, 4.0, 5.0, 6.0)
+K_VALUES = (3.0, 4.0, 5.0, 6.0, 8.0)
 
 
 def inject_into_meters(meters: pd.DataFrame, start: str, seed: int = 42, **kw):
@@ -41,7 +42,7 @@ def evaluate(meters, weather, calendar, models_dir, seed: int = 42, n_spikes: in
         meters, TEST_START, seed, n_stuck=n_stuck, n_spikes=n_spikes, stuck_hours=12
     )
     residual_sets = {k: [] for k in K_VALUES}
-    flat_sets, label_sets = [], []
+    flat_sets, label_sets, persist_sets = [], [], []
     for b in meters.columns:
         booster = lgb.Booster(model_file=str(models_dir / f"{b}_lgbm.txt"))
         clean_y = meters[b].asfreq("h")
@@ -61,6 +62,7 @@ def evaluate(meters, weather, calendar, models_dir, seed: int = 42, n_spikes: in
         for k in K_VALUES:
             residual_sets[k].append(residual_flags(actual, forecast, scale, k))
         flat_sets.append(flat_run_flags(yf[in_test], 6).reindex(actual.index))
+        persist_sets.append(persistent_flags(residual_flags(actual, forecast, scale, 4.0), 3))
         label_sets.append(lab)
 
     all_labels = pd.concat(label_sets, ignore_index=True)
@@ -71,6 +73,12 @@ def evaluate(meters, weather, calendar, models_dir, seed: int = 42, n_spikes: in
         res = pd.concat(residual_sets[k], ignore_index=True)
         rows.append({"detector": f"residual k={k:g}", **detection_report(res, all_labels)})
     rows.append({"detector": "flat run >= 6h", **detection_report(flat_all, all_labels)})
+    critical = pd.concat(residual_sets[8.0], ignore_index=True)
+    warning = pd.concat(persist_sets, ignore_index=True)
+    alert = critical | warning
+    rows.append({"detector": "warning k=4 for 3h+", **detection_report(warning, all_labels)})
+    rows.append({"detector": "ALERT = critical k=8 or warning", **detection_report(alert, all_labels)})
+    rows.append({"detector": "ALERT or flat run", **detection_report(alert | flat_all, all_labels)})
     combined = pd.concat(residual_sets[5.0], ignore_index=True) | flat_all
     rows.append({"detector": "residual k=5 + flat run", **detection_report(combined, all_labels)})
     return pd.DataFrame(rows)
