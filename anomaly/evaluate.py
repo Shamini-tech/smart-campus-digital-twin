@@ -13,11 +13,14 @@ from anomaly.detectors import (
     detection_report, flat_run_flags, persistent_flags, residual_flags,
     robust_scale_by_hour,
 )
+from features.calendar_features import calendar_features
 from forecasting.features import build_features, term_categories
 from forecasting.split import TEST_START, VAL_START
 from simulator.fault_injector import inject_faults
 
 K_VALUES = (3.0, 4.0, 5.0, 6.0, 8.0)
+CAL_K_VALUES = (6.0, 8.0)
+HOLIDAY_FACTOR = 2.0  # thresholds are multiplied by this on holiday and closure days
 
 
 def inject_into_meters(meters: pd.DataFrame, start: str, seed: int = 42, **kw):
@@ -43,6 +46,7 @@ def evaluate(meters, weather, calendar, models_dir, seed: int = 42, n_spikes: in
     )
     residual_sets = {k: [] for k in K_VALUES}
     flat_sets, label_sets, persist_sets = [], [], []
+    cal_sets = {k: [] for k in CAL_K_VALUES}
     for b in meters.columns:
         booster = lgb.Booster(model_file=str(models_dir / f"{b}_lgbm.txt"))
         clean_y = meters[b].asfreq("h")
@@ -63,6 +67,10 @@ def evaluate(meters, weather, calendar, models_dir, seed: int = 42, n_spikes: in
             residual_sets[k].append(residual_flags(actual, forecast, scale, k))
         flat_sets.append(flat_run_flags(yf[in_test], 6).reindex(actual.index))
         persist_sets.append(persistent_flags(residual_flags(actual, forecast, scale, 4.0), 3))
+        is_hol = calendar_features(actual.index, calendar)["is_holiday"].astype(float)
+        mult = 1.0 + (HOLIDAY_FACTOR - 1.0) * is_hol
+        for k in CAL_K_VALUES:
+            cal_sets[k].append(residual_flags(actual, forecast, scale, k, multiplier=mult))
         label_sets.append(lab)
 
     all_labels = pd.concat(label_sets, ignore_index=True)
@@ -81,6 +89,11 @@ def evaluate(meters, weather, calendar, models_dir, seed: int = 42, n_spikes: in
     rows.append({"detector": "ALERT or flat run", **detection_report(alert | flat_all, all_labels)})
     combined = pd.concat(residual_sets[5.0], ignore_index=True) | flat_all
     rows.append({"detector": "residual k=5 + flat run", **detection_report(combined, all_labels)})
+    for k in CAL_K_VALUES:
+        cal = pd.concat(cal_sets[k], ignore_index=True)
+        name = f"residual k={k:g}, holidays x{HOLIDAY_FACTOR:g}"
+        rows.append({"detector": name, **detection_report(cal, all_labels)})
+        rows.append({"detector": name + " + flat run", **detection_report(cal | flat_all, all_labels)})
     return pd.DataFrame(rows)
 
 

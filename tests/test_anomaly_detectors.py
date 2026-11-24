@@ -47,3 +47,14 @@ def test_persistent_flags_keep_only_long_runs():
     flags = pd.Series([False, True, True, False, True, True, True, False])
     out = persistent_flags(flags, min_len=3)
     assert list(out[out].index) == [4, 5, 6]
+
+def test_multiplier_raises_the_threshold_where_given():
+    idx = pd.date_range("2017-11-01", periods=48, freq="h")
+    actual = pd.Series(100.0, index=idx)
+    actual.iloc[30] = 150.0
+    forecast = pd.Series(100.0, index=idx)
+    scale = pd.Series(2.0, index=range(24))
+    mult = pd.Series(1.0, index=idx)
+    mult.iloc[30] = 10.0
+    assert residual_flags(actual, forecast, scale, k=4.0).sum() == 1
+    assert residual_flags(actual, forecast, scale, k=4.0, multiplier=mult).sum() == 0

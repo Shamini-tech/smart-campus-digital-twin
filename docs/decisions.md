@@ -69,3 +69,9 @@ Decisions made so far, and questions still open. Update as the project grows.
 - Requiring 3 consecutive flagged hours did NOT reduce false alarms much (3.9% at k=4): forecast misses are multi-hour, not single-hour blips.
 - Current best simple setup: critical (k=8) + flat run. A moderate one-hour deviation is not alerted (deliberate trade-off against noise).
 - Results are on synthetic injected faults, not real equipment faults.
+
+## Anomaly alert settings
+- Alerts = residual deviation (|actual - forecast| > 6 x typical error for that hour; thresholds doubled on holiday/closure days) OR flat run of >= 6 identical hours.
+- On injected faults (Nov-Dec 2017): 95% of spikes, 100% of stuck meters; false alarms 2.2% of clean hours (k=8 gives 1.1% false alarms and 87.5% spike recall). k is a setting.
+- Remaining false alarms are concentrated in the Library and Admin block, the least predictable buildings.
+- Faults are synthetic; these numbers are not evidence about real equipment faults.

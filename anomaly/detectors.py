@@ -20,11 +20,14 @@ def robust_scale_by_hour(residuals: pd.Series) -> pd.Series:
 
 
 def residual_flags(
-    actual: pd.Series, forecast: pd.Series, scale_by_hour: pd.Series, k: float = 4.0
+    actual: pd.Series, forecast: pd.Series, scale_by_hour: pd.Series, k: float = 4.0,
+    multiplier: pd.Series | None = None,
 ) -> pd.Series:
     """True where |actual - forecast| exceeds k times that hour's typical error."""
     resid = (actual - forecast).abs().to_numpy(dtype=float)
     limit = k * scale_by_hour.reindex(actual.index.hour).to_numpy(dtype=float)
+    if multiplier is not None:
+        limit = limit * multiplier.reindex(actual.index).to_numpy(dtype=float)
     return pd.Series(resid > limit, index=actual.index)
 
 
