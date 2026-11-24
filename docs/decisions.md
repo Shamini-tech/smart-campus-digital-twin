@@ -44,3 +44,8 @@ Decisions made so far, and questions still open. Update as the project grows.
 ## MQTT payload timestamps
 - Payload timestamps are ISO 8601 campus local time without an offset, because the BDG2 source has no timezone. Ingestion applies the campus timezone (config/campus_model.yaml) when storing.
 - Missing values are published as JSON null, never NaN.
+
+## Forecasting split and baselines
+- Chronological split on 2016 data: train before 2016-09-01, validation Sep-Oct, test from 2016-11-01. No shuffling.
+- The loader excludes readings with fault_label != 'none' so injected faults are never learned as normal behaviour.
+- Baselines (same hour yesterday, same hour last week) use only past values. A model must beat them on the test window to be kept.
