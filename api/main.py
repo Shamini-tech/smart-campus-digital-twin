@@ -93,3 +93,6 @@ def twin_state(conn=Depends(get_conn)):
     rows = conn.execute(sql).fetchall()
     states = build_twin_state(campus, rows)
     return {"campus": campus.name, "buildings": [s.model_dump(mode="json") for s in states]}
+
+from api.whatif import router as whatif_router  # noqa: E402
+app.include_router(whatif_router)
