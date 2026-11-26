@@ -96,3 +96,6 @@ def twin_state(conn=Depends(get_conn)):
 
 from api.whatif import router as whatif_router  # noqa: E402
 app.include_router(whatif_router)
+
+from api.forecast import router as forecast_router  # noqa: E402
+app.include_router(forecast_router)
