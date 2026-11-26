@@ -75,3 +75,7 @@ Decisions made so far, and questions still open. Update as the project grows.
 - On injected faults (Nov-Dec 2017): 95% of spikes, 100% of stuck meters; false alarms 2.2% of clean hours (k=8 gives 1.1% false alarms and 87.5% spike recall). k is a setting.
 - Remaining false alarms are concentrated in the Library and Admin block, the least predictable buildings.
 - Faults are synthetic; these numbers are not evidence about real equipment faults.
+
+## What-if scenarios and carbon
+- Scenarios act on the SIMULATED hvac/lighting shares of building load. Assumed factors: 5% HVAC saving per C of setpoint raise (cap 30%), HVAC -80% and lighting -30% when occupancy < 25%. These are assumptions, not measurements. No real equipment is controlled.
+- Carbon factor: 0.716 kgCO2/kWh, CEA CO2 Baseline Database v19.0, FY2022-23 all-India weighted average incl. renewables. CEA v22.0 exists and was not read; update the constant when it is.
